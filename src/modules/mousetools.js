@@ -137,7 +137,7 @@ p.addDOMEvents = function() {
     const factor = Math.pow(scaleFactor, clicks);
     ctx.scale(factor, factor);
     ctx.translate(-pt.x, -pt.y);
-    self.onRedraw && self.onRedraw();
+    self.onRedraw && self.onRedraw(factor);
   };
 
   const handleScroll = function(evt) {
@@ -146,7 +146,7 @@ p.addDOMEvents = function() {
       : evt.detail
         ? -evt.detail
         : 0;
-    if (delta) zoom(ctx, delta);
+    if (delta) zoom(delta);
     return evt.preventDefault() && false;
   };
 

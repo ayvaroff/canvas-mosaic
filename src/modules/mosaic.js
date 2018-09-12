@@ -17,10 +17,9 @@ function Mosaic(canvas, ctx, loaderId) {
 
 const p = Mosaic.prototype;
 
-p.calculate = function() {
+p.calculate = function(scale) {
   const canvas = this.canvas;
-  const loader = this.loader;
-  const TILE_COLUMNS = OPTS.TILE_COLUMNS;
+  const TILE_COLUMNS = scale ? OPTS.TILE_COLUMNS * scale : OPTS.TILE_COLUMNS;
 
   canvas.width = canvas.style.width = this.maxWidth;
   canvas.height = canvas.style.height =
@@ -29,7 +28,7 @@ p.calculate = function() {
   this.colors = this.getTileColors(this.mainImage, TILE_COLUMNS);
 };
 
-p.render = function() {
+p.render = function(scale) {
   const canvas = this.canvas;
   const loader = this.loader;
   const ctx = this.ctx;
@@ -42,10 +41,10 @@ p.render = function() {
   loader.style.display = "block";
   canvas.style.display = "none";
 
-  const TILE_COLUMNS = OPTS.TILE_COLUMNS;
-  const TILE_COLUMNS_Y = (OPTS.TILE_COLUMNS_Y = Math.floor(
+  const TILE_COLUMNS = scale ? OPTS.TILE_COLUMNS * scale : OPTS.TILE_COLUMNS;
+  const TILE_COLUMNS_Y = Math.floor(
     TILE_COLUMNS * this.mainImageAspectRatio
-  ));
+  );
   titleWidth = Math.ceil(this.maxWidth / TILE_COLUMNS);
 
   if (randomSamples.length && randomSamples.length !== TILE_COLUMNS * TILE_COLUMNS_Y) {

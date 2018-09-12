@@ -40,9 +40,9 @@ p.run = function() {
   const mousetools = new Mousetools(canvas, ctx, onRedraw);
   mousetools.run();
 
-  const onChange = function() {
-    mosaic.calculate();
-    mosaic.render();
+  const onChange = function(scale) {
+    mosaic.calculate(scale);
+    mosaic.render(scale);
   }
 
   const ui = new UI(onChange);
