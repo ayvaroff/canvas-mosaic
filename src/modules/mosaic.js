@@ -42,12 +42,13 @@ p.render = function(scale) {
   canvas.style.display = "none";
 
   const TILE_COLUMNS = scale ? OPTS.TILE_COLUMNS * scale : OPTS.TILE_COLUMNS;
-  const TILE_COLUMNS_Y = Math.floor(
-    TILE_COLUMNS * this.mainImageAspectRatio
-  );
+  const TILE_COLUMNS_Y = Math.floor(TILE_COLUMNS * this.mainImageAspectRatio);
   titleWidth = Math.ceil(this.maxWidth / TILE_COLUMNS);
 
-  if (randomSamples.length && randomSamples.length !== TILE_COLUMNS * TILE_COLUMNS_Y) {
+  if (
+    randomSamples.length &&
+    randomSamples.length !== TILE_COLUMNS * TILE_COLUMNS_Y
+  ) {
     randomSamples = [];
     randomSamples.length = 0;
   }
@@ -126,16 +127,24 @@ p.getTileColors = function(image, size) {
 p.loadImages = function(mainImageSrc, mosaicImagesSrc) {
   let self = this;
 
-  loadAsset(mainImageSrc).then(function(image) {
-    self.mainImage = image;
-    self.mainImageAspectRatio = image.height / image.width;
+  loadAsset(mainImageSrc)
+    .then(function(image) {
+      self.mainImage = image;
+      self.mainImageAspectRatio = image.height / image.width;
 
-    Promise.all(mosaicImagesSrc.map(loadAsset)).then(function(images) {
-      self.mosaicImages = images;
-      self.calculate();
-      self.render();
+      Promise.all(mosaicImagesSrc.map(loadAsset))
+        .then(function(images) {
+          self.mosaicImages = images;
+          self.calculate();
+          self.render();
+        })
+        .catch(function(e) {
+          alert("Image loading failed");
+        });
+    })
+    .catch(function(e) {
+      alert("Image loading failed");
     });
-  });
 };
 
 function loadAsset(url) {
