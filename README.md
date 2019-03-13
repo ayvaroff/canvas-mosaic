@@ -5,6 +5,6 @@ Demo: https://ayvaroff.github.io/canvas-mosaic/
 
 Forked from: https://github.com/tomasdev/canvas-mosaic
 
-**Difference: **
+**Difference:**
 - removed onMouseHover image showing
 - added move and scale mosaic om mouse move/scroll
